@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D06B90201DE868A500060818 /* ShopCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B901F1DE868A500060818 /* ShopCollectionViewController.swift */; };
 		D093279B1DE724510035FF04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D093279A1DE724510035FF04 /* AppDelegate.swift */; };
 		D093279D1DE724510035FF04 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D093279C1DE724510035FF04 /* ViewController.swift */; };
 		D09327A01DE724510035FF04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D093279E1DE724510035FF04 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D06B901F1DE868A500060818 /* ShopCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopCollectionViewController.swift; sourceTree = "<group>"; };
 		D09327971DE724510035FF04 /* CarouselTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarouselTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D093279A1DE724510035FF04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D093279C1DE724510035FF04 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				D09327A61DE724510035FF04 /* Info.plist */,
 				D09327AC1DE7248D0035FF04 /* CarouselPageViewController.swift */,
 				D09327AE1DE72B310035FF04 /* CarouselImageViewController.swift */,
+				D06B901F1DE868A500060818 /* ShopCollectionViewController.swift */,
 			);
 			path = CarouselTest;
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D06B90201DE868A500060818 /* ShopCollectionViewController.swift in Sources */,
 				D09327AF1DE72B310035FF04 /* CarouselImageViewController.swift in Sources */,
 				D093279D1DE724510035FF04 /* ViewController.swift in Sources */,
 				D09327AD1DE7248D0035FF04 /* CarouselPageViewController.swift in Sources */,
@@ -310,6 +314,7 @@
 				D09327AB1DE724510035FF04 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

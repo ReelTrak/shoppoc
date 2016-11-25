@@ -11,6 +11,8 @@ import UIKit
 class CarouselPageViewController: UIPageViewController {
     
     var imageViewControllers: [UIViewController]? = nil
+    var currentIndex: Int = 0
+    var carouselTimer: Timer? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,20 +39,54 @@ class CarouselPageViewController: UIPageViewController {
         
         imageViewControllers = [hverdagensViewController, furaViewController, yephaViewController]
         
-        setViewControllers([hverdagensViewController], direction: .forward, animated: true, completion: nil)
+        guard let currentViewController = currentViewController else {
+            return
+        }
+        
+        setViewControllers([currentViewController], direction: .forward, animated: true, completion: nil)
         
         dataSource = self
+        
+    }
     
+    
+    var currentViewController: UIViewController? {
+        guard let imageViewControllers = imageViewControllers else {
+            return nil
+        }
+        return imageViewControllers[currentIndex]
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        print("appearing")
+        if carouselTimer == nil {
+            print("setting timer")
+            carouselTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [unowned self] timer in
+                self.advanceToNextImage(timer)
+            }
+        }
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("disappearing")
+        if carouselTimer != nil {
+            carouselTimer!.invalidate()
+            carouselTimer = nil
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func advanceToNextImage(_ timer: Timer) {
+        if  let currentViewController = currentViewController,
+            let nextViewController = nextViewController(afterViewController: currentViewController) {
+            setViewControllers([nextViewController], direction: .forward, animated: true, completion: nil)
+        }
     }
     
 
@@ -67,31 +103,39 @@ class CarouselPageViewController: UIPageViewController {
 
 extension CarouselPageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let imageViewControllers = imageViewControllers else {
-            return nil
-        }
-        
-        if let index = imageViewControllers.index(of: viewController) {
-            if index < imageViewControllers.count - 1 {
-                return imageViewControllers[index + 1]
-            } else {
-                return imageViewControllers.first!
-            }
-        }
-        return nil
+        return nextViewController(afterViewController: viewController)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        return previousViewController(beforeViewController: viewController)
+    }
+    
+    func nextViewController(afterViewController viewController: UIViewController) -> UIViewController? {
         guard let imageViewControllers = imageViewControllers else {
             return nil
         }
-        
+        if let index = imageViewControllers.index(of: viewController) {
+            if index < imageViewControllers.count - 1 {
+                currentIndex = index + 1
+            } else {
+                currentIndex = 0
+            }
+            return imageViewControllers[currentIndex]
+        }
+        return nil
+    }
+
+    func previousViewController(beforeViewController viewController: UIViewController) -> UIViewController? {
+        guard let imageViewControllers = imageViewControllers else {
+            return nil
+        }
         if let index = imageViewControllers.index(of: viewController) {
             if index > 0 {
-                return imageViewControllers[index - 1]
+                currentIndex = index - 1
             } else {
-                return imageViewControllers[imageViewControllers.count - 1]
+                currentIndex = imageViewControllers.count - 1
             }
+            return imageViewControllers[currentIndex]
         }
         return nil
     }
